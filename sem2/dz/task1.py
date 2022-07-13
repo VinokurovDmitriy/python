@@ -21,5 +21,5 @@ while not checkInput:
         checkInput = True 
     except:
         print('Введите  вещественное число корректно')
-print(convertFloatToInt(n))
+        
 printSumNumbers(convertFloatToInt(n))
