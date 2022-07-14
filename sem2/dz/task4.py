@@ -21,6 +21,6 @@ multiple = 1
 listNumbers = range(-n, n + 1)
 for item in positions:
     currentNumber = listNumbers[int(item) - 1]
-    leftPartText += str(currentNumber) + ' * '
+    leftPartText += str(currentNumber) + (' * ' if item != positions[len(positions) - 1] else '')
     multiple *= currentNumber
 print(leftPartText, ' = ', multiple)
