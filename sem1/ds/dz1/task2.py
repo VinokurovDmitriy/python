@@ -2,7 +2,7 @@
 # ¬(X ⋁ Y ⋁ Z) = ¬X ⋀ ¬Y ⋀ ¬Z для всех значений предикат.
 
 def checkPredicat(a, b, c):
-    return not (x and y and z) == (not x or not y or not y)
+    return not (x or y or z) == (not x and not y and not y)
 
 rangeBool = [True, False]
 result = 'Утверждение ложно'
