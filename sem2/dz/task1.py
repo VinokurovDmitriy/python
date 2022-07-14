@@ -9,7 +9,6 @@ def convertFloatToInt(num):   #перемещение точки пока не �
 
 def printSumNumbers(num):   #подсчет и печать суммы цифр
     sum = 0
-    leftPart = ''
     while num  > 0:
         sum += num % 10
         num = num // 10
