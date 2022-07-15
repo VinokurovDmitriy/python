@@ -1,11 +1,12 @@
 # Напишите программу, которая принимает на вход вещественное число и показывает сумму его цифр.
 
 def convertFloatToInt(num):   #перемещение точки пока не исчезнет дробная часть
-    roundCount = 12
-    while (round(num % 1, roundCount)) > 0:
-        roundCount -=1
-        num = int(num) * 10 + round(num % 1, roundCount) * 10
-    return int(num)
+    count = 1
+    n = num
+    while not int(n) == n:
+        n = num * 10 ** count
+        count += 1
+    return int(n)
 
 def printSumNumbers(num):   #подсчет и печать суммы цифр
     sum = 0
@@ -21,5 +22,5 @@ while not checkInput:
         checkInput = True 
     except:
         print('Введите  вещественное число корректно')
-        
+
 printSumNumbers(convertFloatToInt(n))
