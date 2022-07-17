@@ -12,4 +12,4 @@ for item in myList:
             min = fractional
         if fractional > max:
             max = fractional
-print(round(max - min, 14))
+print(round(abs(max) - abs(min), 14))

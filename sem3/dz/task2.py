@@ -6,7 +6,7 @@ myList = [5, 2, 3, 6, 5, 4, 7]
 myList2 = [3, 5, 6, 2, 3, 7]
 def printResult(list):
     print(list)
-    for index in range(0,  math.ceil(len(list) / 2)):
+    for index in range((len(list) +1 ) // 2):
         print(list[index] * list[len(list) - 1 - index], end = ' ')
     print()
     print()
