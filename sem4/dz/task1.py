@@ -11,7 +11,10 @@ def bbp(n):
 
 d = int(inputUser('число требуемое число знаков после запятой', False))
 if 0 < d <= 10:
-    print(round(bbp(d), d))
+    quant = '1.'
+    for i in range(d):
+        quant += '0'
+    print(bbp(d).quantize(Decimal(quant), ROUND_FLOOR))
     print('На этот раз вам повезло, жалкие людишки. В следующий раз мы прилетим с более сложным заданием')
 else:
     print('Вы не ввели число корректно согласно поставленному условию.')
