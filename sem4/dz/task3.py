@@ -2,11 +2,14 @@
 # список неповторяющихся элементов исходной последовательности.
 
 myList = [1, 2, 3, 4, 3, 2, 4, 2, 6, 7, 2]
-newList = []
-for index in range(len(myList)):
-    check = True
-    for i in range(index + 1, len(myList)):
-        if myList[index] == myList[i]:
-            check = False
-    if check: newList.append(myList[index])
-print(newList)
+def getUniqueItems(listNums):
+    double_list = []
+    unique_list = []
+    for item in listNums:
+        if (item in unique_list) and (item not in double_list):
+            double_list.append(item)
+        unique_list.append(item)
+    print(listNums)
+    print('не повторяющиеся элементы: ', set(unique_list).difference(set(double_list)))
+
+getUniqueItems(myList)
