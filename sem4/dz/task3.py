@@ -6,7 +6,7 @@ def getUniqueItems(listNums):
     double_list = []
     unique_list = []
     for item in listNums:
-        if (item in unique_list) and (item not in double_list):
+        if (item in unique_list):
             double_list.append(item)
         unique_list.append(item)
     print(listNums)
