@@ -1,8 +1,9 @@
-def inputUser(text = None, typeInt = True):
+def inputUser(text=None, typeInt=True):
     checkInput = False
     if not text:
-        typeText = ('целое' if typeInt else 'вещественное') + ' число' 
-    else: typeText = text
+        typeText = ('целое' if typeInt else 'вещественное') + ' число'
+    else:
+        typeText = text
     while not checkInput:
         try:
             num = input(f'Введите {typeText} : ')
@@ -12,4 +13,4 @@ def inputUser(text = None, typeInt = True):
             print()
             print(f'Введите {typeText} корректно')
     if checkInput:
-                return n
+        return n
