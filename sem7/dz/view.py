@@ -67,8 +67,8 @@ def getFormatted(formatted):
 
 
 def mainWindow():
-    window.title("Добро пожаловать в приложение PythonRu")
-    window.geometry('800x450')
+    window.title("Телефонный справочник")
+    window.geometry('480x360')
     lbl1 = Label(window, text="Имя", font=("Arial Bold", 14))
     lbl1.grid(column=0, row=0, padx=25, sticky=W)
     name.grid(column=1, row=0, padx=10)

@@ -7,7 +7,7 @@ def init(d):
 
 
 def rowFormat():
-    return '\n{};{};{};{}\n'.format(data['name'], data['surName'], data['phone'], data['description'])
+    return '{};{};{};{}\n'.format(data['name'], data['surName'], data['phone'], data['description'])
 
 
 def columnFormat():
