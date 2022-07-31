@@ -41,7 +41,7 @@ while count > 0:
     else:
         print('Наш ход')
         if difficult == 0:
-            step = random.randint(0, maxStepCount)
+            step = random.randint(1, maxStepCount)
         else:
             step = maxStepCount if count % maxStepCount == 0 else count % maxStepCount
         print(f'Мы забрали {step} конфет')
