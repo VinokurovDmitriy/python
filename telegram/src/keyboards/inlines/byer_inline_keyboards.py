@@ -12,6 +12,7 @@ start_inline_keyboard = InlineKeyboardMarkup(
 )
 
 
+
 def getNavigationButton(id_item, forward=True):
     text = '>>>' if forward else '<<<'
     return InlineKeyboardButton(text=text, callback_data=navigation_callback.new(for_data='items', id=id_item))
