@@ -42,5 +42,6 @@ async def answer_start_text(message: types.Message):
 
 @dp_text.message_handler(text=['Показать корзину'])
 async def answer_start_text(message: types.Message):
+    orders = printItems(order_table.get_user_orders(message.from_user.id))
     await message.answer(text='<b><i>В вашей корзине</i></b>\n'
-                              f'{printItems(order_table.get_user_orders(message.from_user.id))}', parse_mode='HTML')
+                              f'{orders}' if len(orders) > 0 else 'Ваша корзина пуста', parse_mode='HTML')
