@@ -28,6 +28,8 @@ async def answer_help_command(call: types.CallbackQuery):
     item_id = get_id(call)
     user_id = call.from_user.id
     order = goods_table.by_item(user_id, item_id)
+    print(order)
+    print('click')
     if order:
         order_table.add_order(order)
         await call.message.answer(text='Вы купили 1 ' + goods_table.get_item(item_id)[1])

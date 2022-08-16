@@ -33,13 +33,14 @@ class OrderData:
         else:
             return False
 
-    def add_order(self, order):
+    def add_order(self, order, count=1):
         good_id = order[1]
+        user_id = order[0]
         if self.check_item_in_basket(order[0], good_id):
-            request = f'UPDATE orders SET count = count + 1 WHERE good_id = {good_id};'
+            request = f'UPDATE orders SET count = count + {count} WHERE good_id = {good_id};'
             self.cur.execute(request)
         else:
-            self.cur.execute("INSERT INTO orders VALUES(?, ?, ?);", order)
+            self.cur.execute("INSERT INTO orders VALUES(?, ?, ?);", (user_id, good_id, count))
         self.conn.commit()
 
     def del_order(self, user_id, good_id):
