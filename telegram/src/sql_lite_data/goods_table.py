@@ -31,6 +31,7 @@ class ItemsData:
         return self.cur.fetchone()
 
 
+
     def add_item(self, item):
         self.cur.execute("INSERT INTO items VALUES(?, ?, ?, ?);", item)
         self.conn.commit()
