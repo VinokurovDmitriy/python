@@ -38,7 +38,8 @@ async def answer_get_contact(message: types.Message):
 
 @dp_text.message_handler(text=['Показать все товары'])
 async def answer_start_text(message: types.Message):
-    await message.answer(text=printItems(goods_table.get_items()), parse_mode='HTML')\
+    await message.answer(text=f'<b><i>В наличии в магазине:</i></b>\n{printItems(goods_table.get_items())}',
+                         parse_mode='HTML')
 
 @dp_text.message_handler(text=['Показать корзину'])
 async def answer_start_text(message: types.Message):

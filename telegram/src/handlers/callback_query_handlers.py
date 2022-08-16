@@ -1,5 +1,6 @@
-from controllers import printItem, get_id
-from keyboards import navigation_callback, item_keyboard, start_callback, commands_default_keyboard, by_callback
+from controllers import printItem, get_id, printItems
+from keyboards import commands_default_keyboard, item_keyboard
+from keyboards import navigation_callback, by_callback_callback, count_items_callback, start_callback
 from loader import goods_table, bot
 from aiogram import types
 from loader import dp as dp_callback
@@ -20,18 +21,46 @@ async def answer_item(call: types.CallbackQuery):
 @dp_callback.callback_query_handler(start_callback.filter())
 async def answer_help_command(call: types.CallbackQuery):
     await call.message.answer(text='Список команд внизу', reply_markup=commands_default_keyboard)
-    await bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)
+    await bot.delete_message(chat_id=call.message.chat.id, message_id=call.message.message_id)\
 
-
-@dp_callback.callback_query_handler(by_callback.filter())
+@dp_callback.callback_query_handler(count_items_callback.filter(type_change='+'))
 async def answer_help_command(call: types.CallbackQuery):
     item_id = get_id(call)
     user_id = call.from_user.id
-    order = goods_table.by_item(user_id, item_id)
-    print(order)
-    print('click')
+    order = goods_table.by_item(item_id)
     if order:
-        order_table.add_order(order)
-        await call.message.answer(text='Вы купили 1 ' + goods_table.get_item(item_id)[1])
+        order_table.add_order(item_id, user_id)
     else:
         await call.message.answer(text='К сожалению этот товар закончился')
+    item_data = goods_table.get_item(int(item_id))
+    text_data = printItem(item_data)
+    await bot.edit_message_text(text=f'{text_data}\n В вашей корзине {order_table.check_item_in_basket(user_id,  item_id)[-1]}',
+                                chat_id=call.message.chat.id, message_id=call.message.message_id, parse_mode='HTML')
+    await bot.edit_message_reply_markup(reply_markup=item_keyboard(item_id),
+                                        chat_id=call.message.chat.id, message_id=call.message.message_id)
+
+@dp_callback.callback_query_handler(count_items_callback.filter(type_change='-'))
+async def answer_help_command(call: types.CallbackQuery):
+    item_id = get_id(call)
+    user_id = call.from_user.id
+    count_in_basket = order_table.check_item_in_basket(user_id,  item_id)[-1]
+    order = goods_table.return_item(item_id, count_in_basket)
+    if order:
+        order_table.return_order(item_id, user_id)
+    else:
+        await call.message.answer(text='В вашей козине больше нет этого товара')
+    item_data = goods_table.get_item(int(item_id))
+    text_data = printItem(item_data)
+    await bot.edit_message_text(text=f'{text_data}\n В вашей корзине {order_table.check_item_in_basket(user_id,  item_id)[-1]}',
+                                chat_id=call.message.chat.id, message_id=call.message.message_id, parse_mode='HTML')
+    await bot.edit_message_reply_markup(reply_markup=item_keyboard(item_id),
+                                        chat_id=call.message.chat.id, message_id=call.message.message_id)
+
+
+@dp_callback.callback_query_handler(by_callback_callback.filter())
+async def answer_help_command(call: types.CallbackQuery):
+    user_id = call.from_user.id
+    list_items = printItems(order_table.get_user_orders(user_id))
+    text = list_items if list_items else 'Ваша корзина пуста'
+    order_table.del_orders()
+    await call.message.answer(text=f'Вы купили: {text}', parse_mode='HTML')

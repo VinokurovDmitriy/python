@@ -1,5 +1,5 @@
 from controllers import printItem
-from loader import dp, goods_table
+from loader import dp, goods_table, order_table
 from aiogram import types
 from keyboards import commands_default_keyboard, commands_info_keyboard
 
@@ -15,7 +15,10 @@ async def answer_start_command(message: types.Message):
 @dp.message_handler(text='В магазин')
 async def answer_item_command(message: types.Message):
     item = goods_table.get_first()
-    await message.answer(text=printItem(item), reply_markup=item_keyboard(item[0]), parse_mode='HTML')
+    count_in_basket = order_table.check_item_in_basket(message.from_user.id, item[0])
+    count_message = 0 if not count_in_basket else count_in_basket[-1]
+    await message.answer(text=f'{printItem(item)}\n<b>В вашей корзине:</b> <i>{count_message}</i>',
+                         reply_markup=item_keyboard(item[0]), parse_mode='HTML')
 
 
 @dp.message_handler(commands='help')
