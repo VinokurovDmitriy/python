@@ -1,4 +1,4 @@
-from loader import goods_counts
+from loader import db
 
 
 def getSchedule():
@@ -9,6 +9,8 @@ def getSchedule():
 
 def bold_text(text):
     return f'<b>{text}</b>'
+def itallic_text(text):
+    return f'<i>{text}</i>'
 
 
 def printItem(item_data):
@@ -23,7 +25,7 @@ def printItems(items_data):
 
 
 def get_next_id(good_id, next_id=True):
-    list_ids = list(map(lambda x: x[0], goods_counts))
+    list_ids = list(map(lambda x: x[0], db.get_items()))
     index = list_ids.index(int(good_id))
     try:
         return list_ids[index + (1 if next_id else -1)]

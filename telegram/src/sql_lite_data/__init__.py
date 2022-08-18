@@ -1,2 +1,1 @@
-from .goods_table import ItemsData
-from .orders_table import OrderData
+from .db import DB

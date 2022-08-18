@@ -1,5 +1,6 @@
-from controllers import getSchedule, printItems
-from loader import dp as dp_text, goods_table, order_table
+from controller import getSchedule, printItems
+from loader import dp as dp_text
+from loader import db
 from aiogram import types
 
 
@@ -38,11 +39,11 @@ async def answer_get_contact(message: types.Message):
 
 @dp_text.message_handler(text=['Показать все товары'])
 async def answer_start_text(message: types.Message):
-    await message.answer(text=f'<b><i>В наличии в магазине:</i></b>\n{printItems(goods_table.get_items())}',
+    await message.answer(text=f'<b><i>В наличии в магазине:</i></b>\n{printItems(db.get_items())}',
                          parse_mode='HTML')
 
 @dp_text.message_handler(text=['Показать корзину'])
 async def answer_start_text(message: types.Message):
-    orders = printItems(order_table.get_user_orders(message.from_user.id))
+    orders = printItems(db.get_user_orders(message.from_user.id))
     await message.answer(text='<b><i>В вашей корзине</i></b>\n'
                               f'{orders}' if len(orders) > 0 else 'Ваша корзина пуста', parse_mode='HTML')
