@@ -1,24 +1,24 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from controller import get_next_id
-from .callback_data import start_callback, navigation_callback, by_callback_callback, count_items_callback
-
+from .callback_data import start_callback, navigation_callback, by_callback, count_items_callback
+from loader import uc
 start_inline_keyboard = InlineKeyboardMarkup(
     row_width=1,
     inline_keyboard=[
         [
-            InlineKeyboardButton(text='Главное Меню', callback_data=start_callback.new())
+            InlineKeyboardButton(text=uc.main_menu, callback_data=start_callback.new())
         ]
     ]
 )
 
 
-def get_by_keyboard(id_item) -> InlineKeyboardButton:
-    return InlineKeyboardButton(text='Купить', callback_data=by_callback_callback.new(id_item=id_item))
+def get_by_keyboard(good_id) -> InlineKeyboardButton:
+    return InlineKeyboardButton(text='Купить', callback_data=by_callback.new(good_id=good_id))
 
 
-def getNavigationButton(id_item, forward=True):
+def getNavigationButton(good_id, forward=True):
     text = '>>>' if forward else '<<<'
-    return InlineKeyboardButton(text=text, callback_data=navigation_callback.new(for_data='items', id=id_item))
+    return InlineKeyboardButton(text=text, callback_data=navigation_callback.new(for_data='items', good_id=good_id))
 
 
 def get_change_count(good_id, increase=True):

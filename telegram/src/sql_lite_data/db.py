@@ -29,6 +29,10 @@ class DB:
         self.cur.execute(request)
         return self.cur.fetchone()
 
+    def get_items_by_name(self, name):
+        self.cur.execute(f'SELECT * FROM goods WHERE name LIKE "%{name}%";')
+        return self.cur.fetchall()
+
     def get_items(self):
         self.cur.execute("SELECT * FROM goods;")
         return self.cur.fetchall()

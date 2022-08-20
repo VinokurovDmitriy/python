@@ -1,4 +1,5 @@
 from loader import db
+from quest import quest
 
 
 def getSchedule():
@@ -19,6 +20,9 @@ def printItem(item_data):
                 f'{bold_text("Количество:")} {item_data[3]}\n'
     return text_data
 
+def print_quest(num_quest):
+    text = f'{num_quest} вопрос:'
+    return f'{bold_text(text)} {itallic_text(quest[num_quest - 1])}'
 
 def printItems(items_data):
     return '\n'.join([printItem(item) for item in items_data])

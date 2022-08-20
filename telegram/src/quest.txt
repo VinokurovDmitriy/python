@@ -1,0 +1,17 @@
+
+ (first: yes
+second: may be
+user_id: 708963384
+timestamp: 2022-08-21 00:05:14.816172)
+
+first: da
+second: naverno
+user_id: 708963384
+timestamp: 2022-08-21 00:08:05.010250)
+------------------- 
+
+first: Да
+second: Конечно
+user_id: 708963384
+timestamp: 2022-08-21 00:09:36.356154)
+------------------------------ 
