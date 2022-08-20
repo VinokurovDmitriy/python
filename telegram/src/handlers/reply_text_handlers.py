@@ -13,14 +13,13 @@ async def answer_start_text(message: types.Message):
 @dp_text.message_handler(text=[uc.work_schedule])
 @dp_text.message_handler(commands=[uc.work_schedule])
 async def answer_start_text(message: types.Message):
-    await message.answer(text=getSchedule(), parse_mode='HTML')
+    await message.answer(text=getSchedule())
 
 
 @dp_text.message_handler(text=[uc.about_bot])
 @dp_text.message_handler(commands=[uc.about_bot])
 async def answer_start_text(message: types.Message):
-    await message.answer(text='<pre>Самый лучший бот тот что был вчера,\n приходил ко мне с ночи до утра</pre>',
-                         parse_mode='HTML')
+    await message.answer(text='<pre>Самый лучший бот тот что был вчера,\n приходил ко мне с ночи до утра</pre>')
 
 
 @dp_text.message_handler(content_types=[uc.send_contact])
@@ -38,15 +37,14 @@ async def answer_get_contact(message: types.Message):
 
 @dp_text.message_handler(text=[uc.show_all_items])
 async def answer_start_text(message: types.Message):
-    await message.answer(text=bold_text(itallic_text('В наличии в магазине:\n')) + printItems(db.get_items()),
-                         parse_mode='HTML')
+    await message.answer(text=bold_text(itallic_text('В наличии в магазине:\n')) + printItems(db.get_items()))
 
 
 @dp_text.message_handler(text=[uc.show_basket])
 async def answer_start_text(message: types.Message):
     orders = printItems(db.get_user_orders(message.from_user.id))
     await message.answer(text=bold_text(itallic_text("В вашей корзине")) +
-                              f'\n{orders}' if len(orders) > 0 else 'Ваша корзина пуста', parse_mode='HTML')
+                              f'\n{orders}' if len(orders) > 0 else 'Ваша корзина пуста')
 
 
 @dp_text.message_handler(text=[uc.hi])

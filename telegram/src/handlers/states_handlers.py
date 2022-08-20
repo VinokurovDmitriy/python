@@ -1,6 +1,5 @@
-from controller import bold_text, printItems, itallic_text, print_quest
+from controller import bold_text, printItems, print_quest
 from keyboards.default.byer_keyboards import stop_search_keyboard, commands_default_keyboard
-from quest import quest
 from states import BuyerState
 from loader import dp as dp_states, db, uc
 from aiogram.dispatcher import FSMContext
@@ -15,9 +14,7 @@ async def show_item(message):
 
 @dp_states.message_handler(text=[uc.leave_feedback])
 async def start_quest(message):
-    await message.answer(text='Будем признательны если вы ответите на 3 вопроса\n' +
-                              print_quest(1),
-                         parse_mode='HTML')
+    await message.answer(text='Будем признательны если вы ответите на 3 вопроса\n' + print_quest(1))
     await BuyerState.start_quest.set()
 
 
@@ -35,14 +32,14 @@ async def get_itm_name(message, state: FSMContext):
     else:
         data_text = f'Такого товара нет. Попробуйте поискать что то еще или нажмите кнопку \n ' \
                     f'{bold_text("Остановить поиск")} \nчтобы выйти из режима поиска товаров'
-    await message.answer(text=data_text, parse_mode='HTML', reply_markup=reply_markup)
+    await message.answer(text=data_text, reply_markup=reply_markup)
 
 
 @dp_states.message_handler(state=BuyerState.start_quest)
 async def get_first_answer(message, state: FSMContext):
     await state.update_data(first=message.text)
     await state.reset_state(with_data=False)
-    await message.answer(text=print_quest(2), parse_mode='HTML')
+    await message.answer(text=print_quest(2))
     await BuyerState.next_quest.set()
 
 
@@ -50,7 +47,7 @@ async def get_first_answer(message, state: FSMContext):
 async def get_first_answer(message, state: FSMContext):
     await state.update_data(second=message.text)
     await state.reset_state(with_data=False)
-    await message.answer(text=print_quest(3), parse_mode='HTML')
+    await message.answer(text=print_quest(3))
     await BuyerState.last_quest.set()
 
 

@@ -12,7 +12,7 @@ async def answer_item(call: types.CallbackQuery):
     item_data = db.get_item(int(item_id))
     text_data = printItem(item_data)
     await bot.edit_message_text(text=text_data, chat_id=call.message.chat.id,
-                                message_id=call.message.message_id, parse_mode='HTML')
+                                message_id=call.message.message_id)
     await bot.edit_message_reply_markup(reply_markup=item_keyboard(item_id),
                                         chat_id=call.message.chat.id, message_id=call.message.message_id)
 
@@ -35,7 +35,7 @@ async def answer_help_command(call: types.CallbackQuery):
     item_data = db.get_item(int(item_id))
     text_data = printItem(item_data)
     await bot.edit_message_text(text=f'{text_data}\n В вашей корзине {db.check_item_in_basket(user_id, item_id)[-1]}',
-                                chat_id=call.message.chat.id, message_id=call.message.message_id, parse_mode='HTML')
+                                chat_id=call.message.chat.id, message_id=call.message.message_id)
     await bot.edit_message_reply_markup(reply_markup=item_keyboard(item_id),
                                         chat_id=call.message.chat.id, message_id=call.message.message_id)
 
@@ -53,7 +53,7 @@ async def answer_help_command(call: types.CallbackQuery):
     item_data = db.get_item(int(item_id))
     text_data = printItem(item_data)
     await bot.edit_message_text(text=f'{text_data}\n В вашей корзине {db.check_item_in_basket(user_id, item_id)[-1]}',
-                                chat_id=call.message.chat.id, message_id=call.message.message_id, parse_mode='HTML')
+                                chat_id=call.message.chat.id, message_id=call.message.message_id)
     await bot.edit_message_reply_markup(reply_markup=item_keyboard(item_id),
                                         chat_id=call.message.chat.id, message_id=call.message.message_id)
 
@@ -64,4 +64,4 @@ async def answer_help_command(call: types.CallbackQuery):
     list_items = printItems(db.get_user_orders(user_id))
     text = list_items if list_items else 'Ваша корзина пуста'
     db.del_orders(user_id)
-    await call.message.answer(text=f'Вы купили: {text}', parse_mode='HTML')
+    await call.message.answer(text=f'Вы купили: {text}')
